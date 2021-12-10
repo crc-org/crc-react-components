@@ -7,6 +7,8 @@ import {
     ActionGroup, Checkbox
 } from '@patternfly/react-core';
 
+import "./Settings.scss";
+
 export default class Settings extends React.Component {
     constructor(props) {
         super(props);

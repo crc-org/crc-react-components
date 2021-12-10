@@ -1,5 +1,7 @@
 import React from 'react';
 
+import "./LogWindow.scss";
+
 export default class LogWindow extends React.Component {
     constructor(props) {
         super(props);

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+    Card,
     Button,
 } from '@patternfly/react-core';
+
+import "./Actions.scss";
 
 export default class Actions extends React.Component {
     constructor(props) {
@@ -13,7 +16,7 @@ export default class Actions extends React.Component {
 
     render() {
         return (
-            <div>
+            <div class="crc-actions">
                 <Button onClick={this.props.onStartClicked}
                     variant="primary">Start</Button>{' '}
                 <Button onClick={this.props.onStopClicked}

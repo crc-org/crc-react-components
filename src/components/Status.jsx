@@ -14,7 +14,7 @@ export default class Status extends React.Component {
             CrcStatus: "Unknown",
             OpenshiftStatus: "Unknown",
             OpenshiftVersion: "Unknown",
-            DiskUse: 1,
+            DiskUse: 0,
             DiskSize: 1
         };
 
