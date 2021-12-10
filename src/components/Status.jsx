@@ -5,6 +5,8 @@ import {
     Progress, ProgressVariant, ProgressMeasureLocation
 } from '@patternfly/react-core';
 
+import "./Status.scss";
+
 export default class Status extends React.Component {
     constructor(props) {
         super(props);

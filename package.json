@@ -1,6 +1,6 @@
 {
   "name": "@gbraad/crc-react-components",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "author": {
     "name": "Gerard Braad",
     "email": "me@gbraad.nl"
@@ -16,7 +16,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/gbraad/crc-react-components"
-},
+  },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/gbraad"
   },
@@ -24,28 +24,34 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-lib": "rollup -c",
-    "build-watch": "rollup -c -w"
+    "dev": "webpack --mode development",
+    "build": "webpack --mode production"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/preset-react": "^7.12.10",
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.4",
+    "@babel/preset-react": "^7.16.0",
     "@rollup/plugin-node-resolve": "^11.1.1",
-    "@storybook/addon-actions": "^6.1.16",
-    "@storybook/addon-essentials": "^6.1.16",
-    "@storybook/addon-links": "^6.1.16",
-    "@storybook/react": "^6.1.16",
-    "babel-loader": "^8.2.2",
+    "@storybook/addon-actions": "^6.4.9",
+    "@storybook/addon-essentials": "^6.4.9",
+    "@storybook/addon-links": "^6.4.9",
+    "@storybook/builder-webpack5": "^6.4.9",
+    "@storybook/manager-webpack5": "^6.4.9",
+    "@storybook/react": "^6.4.9",
+    "babel-loader": "^8.2.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^5.2.0",
+    "html-webpack-plugin": "^5.5.0",
     "immer": ">=9.0.6",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "rollup": "^2.38.4",
-    "rollup-plugin-babel": "^4.4.0",
-    "rollup-plugin-peer-deps-external": "^2.2.4",
-    "rollup-plugin-postcss": "^4.0.0",
-    "rollup-plugin-terser": "^7.0.2",
+    "sass": "^1.44.0",
+    "sass-loader": "^12.1.0",
     "trim": ">=0.0.3",
-    "tslib": "^2.3.1"
+    "tslib": "^2.3.1",
+    "webpack": "^5.65.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-node-externals": "^3.0.0"
   },
   "peerDependencies": {
     "@patternfly/react-core": "^4.164.2",
