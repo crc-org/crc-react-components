@@ -16,7 +16,7 @@ export default class Actions extends React.Component {
 
     render() {
         return (
-            <div class="crc-actions">
+            <div className="crc-actions">
                 <Button onClick={this.props.onStartClicked}
                     variant="primary">Start</Button>{' '}
                 <Button onClick={this.props.onStopClicked}
