@@ -1,17 +1,31 @@
 {
-  "name": "crc-react-components",
+  "name": "@gbraad/crc-react-components",
   "version": "0.1.0",
-  "author": "Gerard Braad",
+  "author": {
+    "name": "Gerard Braad",
+    "email": "me@gbraad.nl"
+  },
   "license": "Apache",
   "private": false,
   "description": "A library of shared React components for use with CodeReady Containers",
+  "files": [
+    "dist"
+  ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gbraad/crc-react-components"
+},
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/gbraad"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook",
-    "build-lib": "rollup -c"
+    "build-lib": "rollup -c",
+    "build-watch": "rollup -c -w"
   },
   "devDependencies": {
     "@babel/core": "^7.12.10",
@@ -34,7 +48,7 @@
     "tslib": "^2.3.1"
   },
   "peerDependencies": {
-    "@patternfly/react-core": "^4.175.4",
+    "@patternfly/react-core": "^4.164.2",
     "prop-types": "^15.7.2",
     "react": "^16.8.0 || ^17.0.0",
     "react-dom": "^16.8.0 || ^17.0.0"

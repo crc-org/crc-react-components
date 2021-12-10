@@ -9,7 +9,11 @@ export default class Status extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            CrcStatus: "Unknown"
+            CrcStatus: "Unknown",
+            OpenshiftStatus: "Unknown",
+            OpenshiftVersion: "Unknown",
+            DiskUse: 1,
+            DiskSize: 1
         };
 
         this.updateState = this.updateState.bind(this);
