@@ -5,20 +5,15 @@ import {
     PageSection
 } from '@patternfly/react-core';
 
-import Status from '../components/Status';
+import ControlCard from '../components/ControlCard';
 import Settings from '../components/Settings';
 import LogWindow from '../components/LogWindow';
-import Actions from '../components/Actions';
 
 export function CockpitModule() {
     return (
         <Page>
             <PageSection>
-                <Status />
-
-                <Card>
-                    <Actions />
-                </Card>
+                <ControlCard />
             </PageSection>
             <PageSection>
                 <Card>
