@@ -4,6 +4,7 @@ import {
     Card, CardTitle, CardBody, CardFooter,
     Progress, ProgressVariant, ProgressMeasureLocation
 } from '@patternfly/react-core';
+import Actions from './Actions.jsx'
 
 import "./Status.scss";
 
@@ -43,50 +44,40 @@ export default class Status extends React.Component {
         const fraction = this.state.DiskUse / this.state.DiskSize;
 
         return (
-            <Card className="crc-status">
-                <CardTitle>CodeReady Containers</CardTitle>
-                <CardBody>
-                    <table className="pf-c-table pf-m-grid-md pf-m-compact">
-                        <tbody>
-                            <tr>
-                                <th id="crc-status-crc" scope="row">Status</th>
-                                <td>
-                                    {this.state.CrcStatus}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th id="crc-status-openshift" scope="row" style={{ paddingRight : "20px" }}>OpenShift</th>
-                                <td>
-                                    {this.state.OpenshiftStatus}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th id="crc-status-openshift" scope="row">Version</th>
-                                <td>
-                                    {this.state.OpenshiftVersion}
-                                </td>
-                            </tr>
-                            <tr>
-                                <th id="crc-status-disksize-progress" scope="row">Disk</th>
-                                <td width="200px">
-                                    <Progress value={this.state.DiskUse}
-                                        className="pf-m-sm"
-                                        min={0} max={Number(this.state.DiskSize)}
-                                        variant={fraction > 0.9 ? ProgressVariant.danger : ProgressVariant.info}
-                                        aria-labelledby="crc-status-disksize-progress"
-                                        label={this.formatSize(this.state.DiskUse) / this.formatSize(this.state.DiskSize)}
-                                        measureLocation={ProgressMeasureLocation.outside} />
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </CardBody>
-                <CardFooter>
-                    {
-                        /* <a href="#" onClick={ev => { ev.preventDefault() }}>View details and logs</a> */
-                    }
-                </CardFooter>
-            </Card>
+            <table className="pf-c-table pf-m-grid-md pf-m-compact">
+                <tbody>
+                    <tr>
+                        <th id="crc-status-crc" scope="row">Status</th>
+                        <td>
+                            {this.state.CrcStatus}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th id="crc-status-openshift" scope="row" style={{ paddingRight : "20px" }}>OpenShift</th>
+                        <td>
+                            {this.state.OpenshiftStatus}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th id="crc-status-openshift" scope="row">Version</th>
+                        <td>
+                            {this.state.OpenshiftVersion}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th id="crc-status-disksize-progress" scope="row">Disk</th>
+                        <td width="200px">
+                            <Progress value={this.state.DiskUse}
+                                className="pf-m-sm"
+                                min={0} max={Number(this.state.DiskSize)}
+                                variant={fraction > 0.9 ? ProgressVariant.danger : ProgressVariant.info}
+                                aria-labelledby="crc-status-disksize-progress"
+                                label={this.formatSize(this.state.DiskUse) / this.formatSize(this.state.DiskSize)}
+                                measureLocation={ProgressMeasureLocation.outside} />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         );
     }
 }

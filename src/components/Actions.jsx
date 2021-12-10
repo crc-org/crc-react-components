@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Card,
     Button,
 } from '@patternfly/react-core';
 
