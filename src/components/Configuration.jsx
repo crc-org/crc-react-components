@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {
     Button,
     Form, FormGroup,
-    TextInput,
+    TextInput, NumberInput,
     ActionGroup, Checkbox
 } from '@patternfly/react-core';
 
@@ -17,6 +17,7 @@ export default class Configuration extends React.Component {
             memory: 0,
             "disk-size": 0,
             "consent-telemetry": false,
+            'disk-size': 0,
         };
 
         this.configurationSaveClicked = this.configurationSaveClicked.bind(this);
@@ -52,22 +53,46 @@ export default class Configuration extends React.Component {
         return (
             <div>
                 <Form isHorizontal isWidthLimited>
-                    <FormGroup fieldId='config-cpu' label="CPU">
-                        <TextInput id='config-cpu'
+                    <FormGroup fieldId='settings-cpu' label="CPU">
+                        <NumberInput id='settings-cpu'
                             className="cpus"
+                            inputName="cpus"
+                            minusBtnAriaLabel="minus"
+                            plusBtnAriaLabel="plus"
+                            unit=""
+                            min="1"
                             value={this.state.cpus}
+                            widthChars={5}
+                            onPlus={event => this.updateValue('cpus', this.state.cpus + 1)}
+                            onMinus={event => this.updateValue('cpus', this.state.cpus - 1)}
                             onChange={value => this.props.onValueChanged(this, 'cpus', value)} />
                     </FormGroup>
-                    <FormGroup fieldId='config-memory' label="Memory">
-                        <TextInput id='config-memory'
+                    <FormGroup fieldId='settings-memory' label="Memory">
+                        <NumberInput id='settings-memory'
                             className="memory"
+                            inputName="memory"
+                            minusBtnAriaLabel="minus"
+                            plusBtnAriaLabel="plus"
+                            unit="MiB"
+                            min="8192"
                             value={this.state.memory}
+                            widthChars={5}
+                            onPlus={event => this.updateValue('memory', this.state.memory + 512)}
+                            onMinus={event => this.updateValue('memory', this.state.memory - 512)}
                             onChange={value => this.props.onValueChanged(this, 'memory', value)} />
                     </FormGroup>
-                    <FormGroup fieldId='config-disksize' label="Disk size">
-                        <TextInput id='config-disksize'
-                            className="disksize"
+                    <FormGroup fieldId='settings-disksize' label="Disk size">
+                        <NumberInput id='settings-disksize'
+                            className="disk-size"
+                            inputName="disk-size"
+                            minusBtnAriaLabel="minus"
+                            plusBtnAriaLabel="plus"
+                            unit="GB"
+                            min="20"
                             value={this.state["disk-size"]}
+                            widthChars={5}
+                            onPlus={event => this.updateValue('disk-size', this.state["disk-size"] + 1)}
+                            onMinus={event => this.updateValue('disk-size', this.state["disk-size"] - 1)}
                             onChange={value => this.props.onValueChanged(this, 'disk-size', value)} />
                     </FormGroup>
                     <FormGroup fieldId='config-telemetry' label="Telemetry">
