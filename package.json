@@ -1,6 +1,6 @@
 {
   "name": "@code-ready/crc-react-components",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "author": {
     "name": "Gerard Braad",
     "email": "me@gbraad.nl"
@@ -19,7 +19,7 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "storybook": "start-storybook -p 6006",
+    "storybook": "BROWSER=none start-storybook -p 6006",
     "build-storybook": "build-storybook",
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
