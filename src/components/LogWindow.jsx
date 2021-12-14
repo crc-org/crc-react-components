@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import "./LogWindow.scss";
 
@@ -6,7 +7,7 @@ export default class LogWindow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            log: ""
+            log: "",
         };
 
         this.log = this.log.bind(this);
@@ -34,8 +35,18 @@ export default class LogWindow extends React.Component {
 
         return (
             <div>
-                <textarea style={style} rows="20" cols="80" name="crc-log" readOnly value={this.state.log} />
+                <textarea style={style} rows={this.props.rows} cols={this.props.cols} name="crc-log" readOnly value={this.state.log} />
             </div>
         );
     }
 }
+
+LogWindow.propTypes = {
+    rows: PropTypes.number,
+    cols: PropTypes.number
+  };
+  
+LogWindow.defaultProps = {
+    rows: 20,
+    cols: 80
+};
