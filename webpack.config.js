@@ -22,26 +22,27 @@ const production = process.env.NODE_ENV === 'production';
 /* Only minimize when in production mode */
 if (production) {
   plugins.unshift(new CompressionPlugin({
-      test: /\.(js|html|css)$/,
+      test: /\.(js|jsx|html|css)$/,
       deleteOriginalAssets: true
   }));
 }
 
 module.exports = {
   mode: production ? 'production' : 'development',
-  resolve: {
-    modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
-  },
-  resolveLoader: {
-      modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
-  },
   watchOptions: {
-      ignored: /node_modules/,
+    ignored: /node_modules/,
   },
   entry: {
-      index: "./src/index.js",
+    index: "./src/index.js",
   },
+  externalsPresets: { node: true },
   externals: [nodeExternals()],
+
+  output: {
+    filename: 'index.js',
+    path: path.resolve(__dirname, 'dist'),
+    libraryTarget: 'commonjs'
+  },
 
   optimization: {
     minimize: production,

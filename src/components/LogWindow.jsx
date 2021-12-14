@@ -10,6 +10,7 @@ export default class LogWindow extends React.Component {
         };
 
         this.log = this.log.bind(this);
+        this.clear = this.clear.bind(this);
     }
 
     log(value) {
@@ -17,6 +18,11 @@ export default class LogWindow extends React.Component {
         // prevent double newlines
         const newline = value.endsWith("\n") ? "" : "\r\n";
         const newState = { log: oldstate + value + newline };
+        this.setState(newState);
+    }
+
+    clear() {
+        const newState = { log: "" };
         this.setState(newState);
     }
 

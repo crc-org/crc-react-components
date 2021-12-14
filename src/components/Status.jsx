@@ -41,10 +41,7 @@ export default class Status extends React.Component {
     }
 
     render() {
-        const fraction = this.state.DiskUse / this.state.DiskSize;
-        if (isNaN(fraction)) {
-            fraction = "";
-        }
+        let fraction = this.state.DiskUse / this.state.DiskSize;
 
         return (
             <table className="pf-c-table pf-m-grid-md pf-m-compact">
