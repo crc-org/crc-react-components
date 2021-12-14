@@ -1,15 +1,64 @@
 const path = require('path')
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+
+const copy = require("copy-webpack-plugin");
+const extract = require("mini-css-extract-plugin");
+const TerserJSPlugin = require('terser-webpack-plugin');
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
+const CompressionPlugin = require("compression-webpack-plugin");
 const nodeExternals = require('webpack-node-externals');
+
+const copy_files = [
+  "README.md"
+];
+
+const plugins = [
+  new copy({ patterns: copy_files }),
+  new extract({filename: "[name].css"})
+];
+
+/* A standard nodejs and webpack pattern */
+const production = process.env.NODE_ENV === 'production';
+
+/* Only minimize when in production mode */
+if (production) {
+  plugins.unshift(new CompressionPlugin({
+      test: /\.(js|html|css)$/,
+      deleteOriginalAssets: true
+  }));
+}
+
 module.exports = {
-  entry: './src/index.js',
-  externals: [nodeExternals()],
-  output: {
-    filename: 'index.js',
-    path: path.resolve(__dirname, 'dist'),
-    libraryTarget: 'commonjs'
+  mode: production ? 'production' : 'development',
+  resolve: {
+    modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
   },
-  plugins: [new CleanWebpackPlugin()],
+  resolveLoader: {
+      modules: [ "node_modules", path.resolve(__dirname, 'src/lib') ],
+  },
+  watchOptions: {
+      ignored: /node_modules/,
+  },
+  entry: {
+      index: "./src/index.js",
+  },
+  externals: [nodeExternals()],
+
+  optimization: {
+    minimize: production,
+    minimizer: [
+        new TerserJSPlugin({
+            extractComments: {
+                condition: true,
+                filename: `[file].LICENSE.txt?query=[query]&filebase=[base]`,
+                banner(licenseFile) {
+                    return `License information can be found in ${licenseFile}`;
+                },
+            },
+        }),
+        new CssMinimizerPlugin()
+    ],
+  },
+
   module: {
     rules: [
      {
@@ -18,10 +67,28 @@ module.exports = {
         use: ['babel-loader']
       },
       { 
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'sass-loader'],
-        include: path.resolve(__dirname, './src')
+        test: /\.s?css$/,
+        use: [
+          extract.loader,
+          {
+            loader: 'css-loader',
+            options: {
+              sourceMap: true,
+              url: false
+            }
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+                sourceMap: !production,
+                sassOptions: {
+                    outputStyle: production ? 'compressed' : undefined,
+                },
+            },
+          }
+        ],
       }
     ]
-  }
+  },
+  plugins: plugins
 }

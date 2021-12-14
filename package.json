@@ -1,6 +1,6 @@
 {
   "name": "@gbraad/crc-react-components",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "author": {
     "name": "Gerard Braad",
     "email": "me@gbraad.nl"
@@ -39,14 +39,18 @@
     "@storybook/manager-webpack5": "^6.4.9",
     "@storybook/react": "^6.4.9",
     "babel-loader": "^8.2.3",
-    "clean-webpack-plugin": "^4.0.0",
+    "chrome-remote-interface": "^0.28.0",
+    "compression-webpack-plugin": "^6.0.0",
+    "copy-webpack-plugin": "^6.1.0",
     "css-loader": "^5.2.0",
-    "html-webpack-plugin": "^5.5.0",
+    "css-minimizer-webpack-plugin": "^1.3.0",
     "immer": ">=9.0.6",
+    "mini-css-extract-plugin": "^0.11.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "sass": "^1.44.0",
     "sass-loader": "^12.1.0",
+    "terser-webpack-plugin": "^5.1.3",
     "trim": ">=0.0.3",
     "tslib": "^2.3.1",
     "webpack": "^5.65.0",
