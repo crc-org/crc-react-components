@@ -7,16 +7,21 @@ import {
     ActionGroup, Checkbox
 } from '@patternfly/react-core';
 
-import "./Settings.scss";
+import "./Configuration.scss";
 
-export default class Settings extends React.Component {
+export default class Configuration extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            cpus: 0,
+            memory: 0,
+            "disk-size": 0,
+            "consent-telemetry": false,
+        };
 
         this.pullsecretChangeClicked = this.pullsecretChangeClicked.bind(this);
-        this.settingsSaveClicked = this.settingsSaveClicked.bind(this);
-        this.settingsResetClicked = this.settingsResetClicked.bind(this);
+        this.configurationSaveClicked = this.configurationSaveClicked.bind(this);
+        this.configurationResetClicked = this.configurationResetClicked.bind(this);
         this.updateValue = this.updateValue.bind(this);
 
         this.pullsecretInput = React.createRef();
@@ -30,8 +35,10 @@ export default class Settings extends React.Component {
     }
 
     updateValue(key, value) {
-        const newState = { ["" + key]: value };
-        this.setState(newState);
+        if(this.state["" + key] !== undefined) {
+            const newState = { ["" + key]: value };
+            this.setState(newState);
+        }
     }
 
     pullsecretChangeClicked() {
@@ -39,11 +46,11 @@ export default class Settings extends React.Component {
         this.props.onValueChanged(this, 'pullsecretContent', value);
     }
 
-    settingsSaveClicked() {
+    configurationSaveClicked() {
         this.props.onSaveClicked(this.state);
     }
 
-    settingsResetClicked() {
+    configurationResetClicked() {
         this.props.onResetClicked();
     }
 
@@ -51,26 +58,26 @@ export default class Settings extends React.Component {
         return (
             <div>
                 <Form isHorizontal isWidthLimited>
-                    <FormGroup fieldId='settings-cpu' label="CPU">
-                        <TextInput id='settings-cpu'
+                    <FormGroup fieldId='config-cpu' label="CPU">
+                        <TextInput id='config-cpu'
                             className="cpus"
                             value={this.state.cpus}
                             onChange={value => this.props.onValueChanged(this, 'cpus', value)} />
                     </FormGroup>
-                    <FormGroup fieldId='settings-memory' label="Memory">
-                        <TextInput id='settings-memory'
+                    <FormGroup fieldId='config-memory' label="Memory">
+                        <TextInput id='config-memory'
                             className="memory"
                             value={this.state.memory}
                             onChange={value => this.props.onValueChanged(this, 'memory', value)} />
                     </FormGroup>
-                    <FormGroup fieldId='settings-disksize' label="Disk size">
-                        <TextInput id='settings-disksize'
+                    <FormGroup fieldId='config-disksize' label="Disk size">
+                        <TextInput id='config-disksize'
                             className="disksize"
                             value={this.state["disk-size"]}
                             onChange={value => this.props.onValueChanged(this, 'disk-size', value)} />
                     </FormGroup>
-                    <FormGroup fieldId='settings-telemetry' label="Telemetry">
-                        <Checkbox id='settings-consentTelemetry'
+                    <FormGroup fieldId='config-telemetry' label="Telemetry">
+                        <Checkbox id='config-consentTelemetry'
                             className="consentTelemetry"
                             value={this.state["consent-telemetry"]}
                             onChange={value => this.props.onValueChanged(this, 'consent-telemetry', value)}
@@ -78,11 +85,11 @@ export default class Settings extends React.Component {
                             description="Consent to allow basic information about the system and cluster to be collected for development and debugging purposes" />
                     </FormGroup>
                     <ActionGroup>
-                        <Button variant="primary" onClick={this.settingsSaveClicked}>Save</Button>
-                        <Button variant="link" onClick={this.settingsResetClicked}>Reset</Button>
+                        <Button variant="primary" onClick={this.configurationSaveClicked}>Save</Button>
+                        <Button variant="link" onClick={this.configurationResetClicked}>Reset</Button>
                     </ActionGroup>
-                    <FormGroup fieldId='settings-pullsecret' label="Pullsecret">
-                        <TextInput id='settings-pullsecret'
+                    <FormGroup fieldId='config-pullsecret' label="Pullsecret">
+                        <TextInput id='config-pullsecret'
                             className="pullsecret"
                             value={this.state.pullsecret}
                             ref={this.pullsecretInput}
@@ -95,7 +102,7 @@ export default class Settings extends React.Component {
     }
 }
 
-Button.propTypes = {
+Configuration.propTypes = {
     onValueChanged: PropTypes.func,
     onSaveClicked: PropTypes.func,
     onResetClicked: PropTypes.func

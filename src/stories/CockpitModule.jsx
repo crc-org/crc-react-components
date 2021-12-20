@@ -6,7 +6,7 @@ import {
 } from '@patternfly/react-core';
 
 import ControlCard from '../components/ControlCard';
-import Settings from '../components/Settings';
+import Configuration from '../components/Configuration';
 import LogWindow from '../components/LogWindow';
 
 export function CockpitModule() {
@@ -20,7 +20,7 @@ export function CockpitModule() {
                     <LogWindow />
                 </Card>
                 <Card>
-                    <Settings />
+                    <Configuration />
                 </Card>
             </PageSection>
         </Page>

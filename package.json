@@ -1,6 +1,6 @@
 {
-  "name": "@gbraad/crc-react-components",
-  "version": "0.4.5",
+  "name": "@code-ready/crc-react-components",
+  "version": "0.5.5",
   "author": {
     "name": "Gerard Braad",
     "email": "me@gbraad.nl"
@@ -15,7 +15,7 @@
   "module": "dist/index.es.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/gbraad/crc-react-components"
+    "url": "https://github.com/code-ready/crc-react-components"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/gbraad"
