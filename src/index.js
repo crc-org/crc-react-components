@@ -5,6 +5,7 @@ import Configuration from './components/Configuration.jsx';
 import Status from './components/Status.jsx';
 import PodmanStatus from './components/PodmanStatus.jsx';
 import OpenShiftStatus from './components/OpenShiftStatus.jsx';
+import UnknownStatus from './components/UnknownStatus.jsx';
 
 export {
   Actions,
@@ -13,5 +14,6 @@ export {
   Configuration,
   Status,
   PodmanStatus,
-  OpenShiftStatus
+  OpenShiftStatus,
+  UnknownStatus
 };

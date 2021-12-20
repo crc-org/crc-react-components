@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import PodmanStatus from './PodmanStatus.jsx';
 import OpenShiftStatus from './OpenShiftStatus.jsx';
+import UnknownStatus from './UnknownStatus.jsx';
 
 import "./Status.scss";
 
@@ -25,9 +26,7 @@ export default class Status extends React.Component {
         }
 
         return(
-            <>
-                Unknown preset
-            </>
+            <UnknownStatus ref={this.status} />
         );
     }
 }
