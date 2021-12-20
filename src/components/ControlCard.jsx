@@ -11,9 +11,6 @@ import "./ControlCard.scss";
 export default class ControlCard extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            
-        }
 
         this.updateStatus = this.updateStatus.bind(this);
         this.status = React.createRef();
@@ -29,13 +26,14 @@ export default class ControlCard extends React.Component {
             <Card className="crc-controlcard">
                 <CardTitle>CodeReady Containers</CardTitle>
                 <CardBody>
-                    <Status ref={this.status} />
+                    <Status ref={this.status}
+                        preset={this.props.preset}/>
                 </CardBody>
                 <CardFooter>
                     <Actions ref={this.actions}
-                            onStartClicked={this.props.onStartClicked}
-                            onStopClicked={this.props.onStopClicked}
-                            onDeleteClicked={this.props.onDeleteClicked} />
+                        onStartClicked={this.props.onStartClicked}
+                        onStopClicked={this.props.onStopClicked}
+                        onDeleteClicked={this.props.onDeleteClicked} />
                 </CardFooter>
             </Card>
         );
@@ -43,6 +41,7 @@ export default class ControlCard extends React.Component {
 }
 
 ControlCard.propTypes = {
+    preset: PropTypes.string,
     onStartClicked: PropTypes.func,
     onStopClicked: PropTypes.func,
     onDeleteClicked: PropTypes.func

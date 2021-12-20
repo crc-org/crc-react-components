@@ -3,11 +3,15 @@ import ControlCard from './components/ControlCard.jsx';
 import LogWindow from './components/LogWindow.jsx';
 import Configuration from './components/Configuration.jsx';
 import Status from './components/Status.jsx';
+import PodmanStatus from './components/PodmanStatus.jsx';
+import OpenShiftStatus from './components/OpenShiftStatus.jsx';
 
 export {
   Actions,
   ControlCard,
   LogWindow,
   Configuration,
-  Status
+  Status,
+  PodmanStatus,
+  OpenShiftStatus
 };
