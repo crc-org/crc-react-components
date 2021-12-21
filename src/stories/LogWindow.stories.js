@@ -8,8 +8,15 @@ export default {
   },
 };
 
-const Template = (args) => <LogWindow {...args} />;
+var logWindow = React.createRef();
+const Template = (args) => <LogWindow ref={logWindow} {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
 };
+
+setInterval(function() {
+
+  logWindow.current.log("Lorem ipsum");
+
+}, 1000);

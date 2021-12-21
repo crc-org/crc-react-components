@@ -12,6 +12,12 @@ export default class LogWindow extends React.Component {
 
         this.log = this.log.bind(this);
         this.clear = this.clear.bind(this);
+
+        this.textAreaLog = React.createRef();
+    }
+
+    componentDidUpdate() {
+        this.textAreaLog.current.scrollTop = this.textAreaLog.current.scrollHeight;
     }
 
     log(value) {
@@ -20,6 +26,7 @@ export default class LogWindow extends React.Component {
         const newline = value.endsWith("\n") ? "" : "\r\n";
         const newState = { log: oldstate + value + newline };
         this.setState(newState);
+        
     }
 
     clear() {
@@ -30,12 +37,17 @@ export default class LogWindow extends React.Component {
     render() {
         const style = {
             backgroundColor: "black",
-            color: "white"
+            color: "white",
+            resize: "none"
         };
 
         return (
             <div>
-                <textarea style={style} rows={this.props.rows} cols={this.props.cols} name="crc-log" readOnly value={this.state.log} />
+                <textarea ref={this.textAreaLog} 
+                    style={style} readOnly 
+                    rows={this.props.rows} cols={this.props.cols} name="crc-log"
+                    value={this.state.log}
+                    />
             </div>
         );
     }
