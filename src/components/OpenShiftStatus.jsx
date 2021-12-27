@@ -45,13 +45,13 @@ export default class OpenShiftStatus extends React.Component {
             <table className="pf-c-table pf-m-grid-md pf-m-compact">
                 <tbody>
                     <tr>
-                        <th id="crc-status-crc" scope="row">Status</th>
-                        <td>
+                        <th width="100px" id="crc-status-crc" scope="row">Status</th>
+                        <td width="200px">
                             {this.state.CrcStatus}
                         </td>
                     </tr>
                     <tr>
-                        <th id="crc-status-openshift" scope="row" style={{ paddingRight : "20px" }}>OpenShift</th>
+                        <th id="crc-status-openshift" scope="row">OpenShift</th>
                         <td>
                             {this.state.OpenshiftStatus}
                         </td>
@@ -64,7 +64,7 @@ export default class OpenShiftStatus extends React.Component {
                     </tr>
                     <tr>
                         <th id="crc-status-disksize-progress" scope="row">Disk</th>
-                        <td width="200px">
+                        <td>
                             <Progress value={this.state.DiskUse}
                                 className="pf-m-sm"
                                 min={0} max={Number(this.state.DiskSize)}

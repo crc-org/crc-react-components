@@ -44,20 +44,20 @@ export default class PodmanStatus extends React.Component {
             <table className="pf-c-table pf-m-grid-md pf-m-compact">
                 <tbody>
                     <tr>
-                        <th id="crc-status-crc" scope="row">Status</th>
-                        <td>
+                        <th width="100px" id="crc-status-crc" scope="row">Status</th>
+                        <td width="200px">
                             {this.state.CrcStatus}
                         </td>
                     </tr>
                     <tr>
-                        <th id="crc-status-podman" scope="row" style={{ paddingRight : "20px" }}>Podman</th>
+                        <th id="crc-status-podman" scope="row">Podman</th>
                         <td>
                             {this.state.PodmanVersion}
                         </td>
                     </tr>
                     <tr>
                         <th id="crc-status-disksize-progress" scope="row">Disk</th>
-                        <td width="200px">
+                        <td>
                             <Progress value={this.state.DiskUse}
                                 className="pf-m-sm"
                                 min={0} max={Number(this.state.DiskSize)}
