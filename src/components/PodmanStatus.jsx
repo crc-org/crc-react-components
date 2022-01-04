@@ -60,7 +60,7 @@ export default class PodmanStatus extends React.Component {
                         <td>
                             <Progress value={this.state.DiskUse}
                                 className="pf-m-sm"
-                                min={0} max={Number(this.state.DiskSize)}
+                                min={0} max={ this.state.DiskSize == 0 ? Number(1) : Number(this.state.DiskSize) }
                                 variant={fraction > 0.9 ? ProgressVariant.danger : ProgressVariant.info}
                                 aria-labelledby="crc-status-disksize-progress"
                                 label={this.formatSize(this.state.DiskUse) / this.formatSize(this.state.DiskSize)}
