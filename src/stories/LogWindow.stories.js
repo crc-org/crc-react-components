@@ -13,6 +13,8 @@ const Template = (args) => <LogWindow ref={logWindow} {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
+  cols: 60,
+  rows: 20,
 };
 
 setInterval(function() {
