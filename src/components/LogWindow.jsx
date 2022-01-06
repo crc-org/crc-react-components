@@ -38,8 +38,15 @@ export default class LogWindow extends React.Component {
         const style = {
             backgroundColor: "black",
             color: "white",
-            resize: "none"
+            resize: "none",
         };
+
+        if (this.props.width !== "") {
+            style.width = this.props.width
+        }
+        if (this.props.height !== "") {
+            style.height = this.props.height
+        }
 
         return (
             <div>
@@ -55,7 +62,9 @@ export default class LogWindow extends React.Component {
 
 LogWindow.propTypes = {
     rows: PropTypes.number,
-    cols: PropTypes.number
+    cols: PropTypes.number,
+    width: PropTypes.string,
+    height: PropTypes.string
   };
   
 LogWindow.defaultProps = {
