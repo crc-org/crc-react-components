@@ -39,6 +39,7 @@ export default class LogWindow extends React.Component {
             backgroundColor: "black",
             color: "white",
             resize: "none",
+            border: "0px"
         };
 
         if (this.props.width !== "") {
