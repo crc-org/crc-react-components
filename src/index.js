@@ -6,6 +6,7 @@ import Status from './components/Status.jsx';
 import PodmanStatus from './components/PodmanStatus.jsx';
 import OpenShiftStatus from './components/OpenShiftStatus.jsx';
 import UnknownStatus from './components/UnknownStatus.jsx';
+import PullSecretInputCard from './components/PullSecretInputCard.jsx';
 
 export {
   Actions,
@@ -15,5 +16,6 @@ export {
   Status,
   PodmanStatus,
   OpenShiftStatus,
-  UnknownStatus
+  UnknownStatus,
+  PullSecretInputCard
 };

@@ -17,8 +17,8 @@ Default.args = {
   rows: 20,
 };
 
+/*
 setInterval(function() {
-
   logWindow.current.log("Lorem ipsum");
-
 }, 1000);
+*/
