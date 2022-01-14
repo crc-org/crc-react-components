@@ -19,12 +19,17 @@ export default class PullSecretInputCard extends React.Component {
     }
     
     render() {
+        const style = {
+            resize: "none",
+            height: this.props.height
+        };
+
         return (
             <Card isLarge isPlain>
                 <CardTitle>Please provide a pull secret</CardTitle>
                 <CardBody>
                     <TextArea id="pullsecretEntry"
-                        style={{height: "240px", resize: "none"}} autoResize={false}
+                        style={style} autoResize={false}
                         value={this.props.pullsecret} onChange={this.props.onChanged} />
                 </CardBody>
                 <CardFooter>
@@ -46,5 +51,10 @@ export default class PullSecretInputCard extends React.Component {
 
 PullSecretInputCard.propTypes = {
     pullsecret: PropTypes.string,
+    height: PropTypes.string,
     onChanged: PropTypes.func
 }
+
+PullSecretInputCard.defaultProps = {
+    height: "240px"
+};
