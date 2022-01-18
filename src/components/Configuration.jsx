@@ -19,7 +19,6 @@ export default class Configuration extends React.Component {
             "consent-telemetry": false,
         };
 
-        this.pullsecretChangeClicked = this.pullsecretChangeClicked.bind(this);
         this.configurationSaveClicked = this.configurationSaveClicked.bind(this);
         this.configurationResetClicked = this.configurationResetClicked.bind(this);
         this.updateValue = this.updateValue.bind(this);
@@ -39,11 +38,6 @@ export default class Configuration extends React.Component {
             const newState = { ["" + key]: value };
             this.setState(newState);
         }
-    }
-
-    pullsecretChangeClicked() {
-        const value = this.pullsecretInput.current.value;
-        this.props.onValueChanged(this, 'pullsecretContent', value);
     }
 
     configurationSaveClicked() {
@@ -89,12 +83,7 @@ export default class Configuration extends React.Component {
                         <Button variant="link" onClick={this.configurationResetClicked}>Reset</Button>
                     </ActionGroup>
                     <FormGroup fieldId='config-pullsecret' label="Pullsecret">
-                        <TextInput id='config-pullsecret'
-                            className="pullsecret"
-                            value={this.state.pullsecret}
-                            ref={this.pullsecretInput}
-                            onChange={value => this.props.onValueChanged(this, 'pull-secret', value)} />
-                        <Button onClick={this.pullsecretChangeClicked} variant="primary">Change</Button>
+                        <Button onClick={this.props.onPullsecretChangeClicked} variant="primary">Change</Button>
                     </FormGroup>
                 </Form>
             </div>
@@ -105,5 +94,6 @@ export default class Configuration extends React.Component {
 Configuration.propTypes = {
     onValueChanged: PropTypes.func,
     onSaveClicked: PropTypes.func,
-    onResetClicked: PropTypes.func
+    onResetClicked: PropTypes.func,
+    onPullsecretChangeClicked: PropTypes.func
 };
