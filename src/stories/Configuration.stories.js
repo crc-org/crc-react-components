@@ -12,4 +12,5 @@ const Template = (args) => <Configuration {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
+  
 };
