@@ -8,15 +8,17 @@ import {
 } from '@patternfly/react-core';
 
 import "./Configuration.scss";
+import PresetSelection from './PresetSelection';
 
 export default class Configuration extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            preset: "unknown",
             cpus: 0,
             memory: 0,
-            "disk-size": 0,
-            "consent-telemetry": false,
+            'disk-size': 0,
+            'consent-telemetry': false,
             'disk-size': 0,
         };
 
@@ -52,7 +54,7 @@ export default class Configuration extends React.Component {
     render() {
         return (
             <div>
-                <Form isHorizontal isWidthLimited>
+                <Form isHorizontal>
                     <FormGroup fieldId='settings-cpu' label="CPU">
                         <NumberInput id='settings-cpu'
                             className="cpus"
@@ -65,7 +67,8 @@ export default class Configuration extends React.Component {
                             widthChars={5}
                             onPlus={event => this.updateValue('cpus', this.state.cpus + 1)}
                             onMinus={event => this.updateValue('cpus', this.state.cpus - 1)}
-                            onChange={value => this.props.onValueChanged(this, 'cpus', value)} />
+                            onChange={value => this.state['cpus'] } 
+                            />
                     </FormGroup>
                     <FormGroup fieldId='settings-memory' label="Memory">
                         <NumberInput id='settings-memory'
@@ -79,7 +82,8 @@ export default class Configuration extends React.Component {
                             widthChars={5}
                             onPlus={event => this.updateValue('memory', this.state.memory + 512)}
                             onMinus={event => this.updateValue('memory', this.state.memory - 512)}
-                            onChange={value => this.props.onValueChanged(this, 'memory', value)} />
+                            onChange={value => this.state['memory'] } 
+                            />
                     </FormGroup>
                     <FormGroup fieldId='settings-disksize' label="Disk size">
                         <NumberInput id='settings-disksize'
@@ -93,7 +97,17 @@ export default class Configuration extends React.Component {
                             widthChars={5}
                             onPlus={event => this.updateValue('disk-size', this.state["disk-size"] + 1)}
                             onMinus={event => this.updateValue('disk-size', this.state["disk-size"] - 1)}
-                            onChange={value => this.props.onValueChanged(this, 'disk-size', value)} />
+                            onChange={value => this.state['disk-size'] }
+                            />
+                    </FormGroup>
+                    <FormGroup fieldId='settings-preset' label="Preset">
+                        <PresetSelection id="settings.preset" isCompact
+                            className="preset"
+                            inputName="preset"
+                            podmanDescription="This option will allow you to use podman to run containers inside a VM environment."
+                            openshiftDescription="This option will run a full cluster environment as a single node, providing a registry, monitoring and access to Operator Hub"
+                            value={this.state.preset}
+                            onChange={value => this.updateValue('preset', value)} />
                     </FormGroup>
                     <FormGroup fieldId='config-telemetry' label="Telemetry">
                         <Checkbox id='config-consentTelemetry'
