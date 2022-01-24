@@ -112,8 +112,8 @@ export default class Configuration extends React.Component {
                     <FormGroup fieldId='config-telemetry' label="Telemetry">
                         <Checkbox id='config-consentTelemetry'
                             className="consentTelemetry"
-                            value={this.state["consent-telemetry"]}
-                            onChange={value => this.props.onValueChanged(this, 'consent-telemetry', value)}
+                            isChecked={this.state["consent-telemetry"] === "yes" ? true : false }
+                            onChange={value => this.updateValue('consent-telemetry', value === true ? "yes" : "no")}
                             label="Report telemetry to Red Hat"
                             description="Consent to allow basic information about the system and cluster to be collected for development and debugging purposes" />
                     </FormGroup>
