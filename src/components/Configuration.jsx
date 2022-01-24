@@ -104,9 +104,7 @@ export default class Configuration extends React.Component {
                         <PresetSelection id="settings.preset" isCompact
                             className="preset"
                             inputName="preset"
-                            podmanDescription="This option will allow you to use podman to run containers inside a VM environment."
-                            openshiftDescription="This option will run a full cluster environment as a single node, providing a registry, monitoring and access to Operator Hub"
-                            value={this.state.preset}
+                            value={this.state["preset"]}
                             onChange={value => this.updateValue('preset', value)} />
                     </FormGroup>
                     <FormGroup fieldId='config-telemetry' label="Telemetry">
