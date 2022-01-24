@@ -18,7 +18,7 @@ export default class Configuration extends React.Component {
             cpus: 0,
             memory: 0,
             'disk-size': 0,
-            'consent-telemetry': false,
+            'consent-telemetry': "no",
             'disk-size': 0,
         };
 
