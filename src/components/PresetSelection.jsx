@@ -8,8 +8,8 @@ export default class PresetSelection extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            presetSelected: this.props.value  // from config
-        };
+            presetSelected: this.props.value
+        }
         this.description = "";
 
         this.handlePresetSelectClick = this.handlePresetSelectClick.bind(this);
@@ -30,21 +30,19 @@ export default class PresetSelection extends React.Component {
         }
     };
 
-    render() {
-        var descriptionStyle= {
-            fontSize: "var(--pf-global--FontSize--sm)",
-            color: "var(--pf-global--Color--200)",
-            display: "block",
-            paddingTop: "5px"
-        }
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+           presetSelected: nextProps.value
+        })
+      }
 
+    render() {
         var compactTemplate = (
             <>
                 <div role="group">
                     <Button className="preset-selection-button-compact"
                         variant={ (this.state.presetSelected === "openshift") ? "primary" : "secondary" }
                         onClick={ event => this.handlePresetSelectClick(event, 'openshift') }>OpenShift</Button>
-
                     <Button className="preset-selection-button-compact"
                         variant={ (this.state.presetSelected === "podman") ? "primary" : "secondary" }
                         onClick={ event => this.handlePresetSelectClick(event, 'podman') }>Podman</Button>
@@ -68,7 +66,9 @@ export default class PresetSelection extends React.Component {
             </>
         )
 
-        return (this.props.isCompact ? compactTemplate : regularTemplate);
+        return (
+            this.props.isCompact ? compactTemplate : regularTemplate
+        );
     }
 }
 
@@ -82,6 +82,6 @@ PresetSelection.propTypes = {
 
 PresetSelection.defaultProps = {
     value: "unknown",
-    podmanDescription: "",
-    openshiftDescription: ""
+    podmanDescription: "This option will allow you to use podman to run containers inside a VM environment.",
+    openshiftDescription: "This option will run a full cluster environment as a single node, providing a registry, monitoring and access to Operator Hub"
 }; 
