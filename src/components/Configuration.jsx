@@ -8,7 +8,7 @@ import {
 } from '@patternfly/react-core';
 
 import "./Configuration.scss";
-import PresetSelection from './PresetSelection';
+import PresetSelection from './PresetSelection.jsx';
 
 export default class Configuration extends React.Component {
     constructor(props) {
