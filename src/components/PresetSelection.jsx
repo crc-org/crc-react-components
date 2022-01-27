@@ -13,29 +13,34 @@ export default class PresetSelection extends React.Component {
         this.description = "";
 
         this.handlePresetSelectClick = this.handlePresetSelectClick.bind(this);
+        this.updatePresetDescription = this.updatePresetDescription.bind(this);
     }
   
     handlePresetSelectClick = (event, value) => {
         this.setState({ presetSelected: value });
 
-        if(value === "podman") {
-            this.description = this.props.podmanDescription;
-        }
-        if(value === "openshift") {
-            this.description = this.props.openshiftDescription;
-        }
+        this.updatePresetDescription(value);
 
         if(this.props.onChanged !== null) {
             this.props.onChange(value);
         }
     };
 
+    updatePresetDescription(value) {
+        if(value === "podman") {
+            this.description = this.props.podmanDescription;
+        }
+        if(value === "openshift") {
+            this.description = this.props.openshiftDescription;
+        }
+    }
+
     componentWillReceiveProps(nextProps) {
         this.setState({
            presetSelected: nextProps.value
         })
 
-        // handlePresetSelectClick()
+        this.updatePresetDescription(nextProps.value);
       }
 
     render() {
