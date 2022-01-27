@@ -34,6 +34,8 @@ export default class PresetSelection extends React.Component {
         this.setState({
            presetSelected: nextProps.value
         })
+
+        // handlePresetSelectClick()
       }
 
     render() {

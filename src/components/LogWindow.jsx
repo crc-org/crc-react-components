@@ -66,7 +66,7 @@ LogWindow.propTypes = {
     cols: PropTypes.number,
     width: PropTypes.string,
     height: PropTypes.string
-  };
+};
   
 LogWindow.defaultProps = {
     rows: 20,
