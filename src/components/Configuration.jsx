@@ -20,13 +20,15 @@ export default class Configuration extends React.Component {
             'disk-size': 0,
             'consent-telemetry': "no",
             'disk-size': 0,
+            'http-proxy': "",
+            'https-proxy': "",
+            'no-proxy': "",
+            "proxy-ca-file": ""
         };
 
         this.configurationSaveClicked = this.configurationSaveClicked.bind(this);
         this.configurationResetClicked = this.configurationResetClicked.bind(this);
         this.updateValue = this.updateValue.bind(this);
-
-        this.pullsecretInput = React.createRef();
     }
 
     updateValues(values) {
@@ -55,6 +57,7 @@ export default class Configuration extends React.Component {
         return (
             <div>
                 <Form isHorizontal>
+
                     <FormGroup fieldId='settings-cpu' label="CPU">
                         <NumberInput id='settings-cpu'
                             className="cpus"
@@ -100,13 +103,19 @@ export default class Configuration extends React.Component {
                             onChange={value => this.state['disk-size'] }
                             />
                     </FormGroup>
+
+
+
                     <FormGroup fieldId='settings-preset' label="Preset">
-                        <PresetSelection id="settings.preset" isCompact
+                        <PresetSelection id="settings-preset" isCompact
                             className="preset"
                             inputName="preset"
                             value={this.state["preset"]}
                             onChange={value => this.updateValue('preset', value)} />
                     </FormGroup>
+
+
+
                     <FormGroup fieldId='config-telemetry' label="Telemetry">
                         <Checkbox id='config-consentTelemetry'
                             className="consentTelemetry"
@@ -115,10 +124,41 @@ export default class Configuration extends React.Component {
                             label="Report telemetry to Red Hat"
                             description="Consent to allow basic information about the system and cluster to be collected for development and debugging purposes" />
                     </FormGroup>
+
+                    
+
+                    <FormGroup fieldId='config-proxy' label="HTTP proxy">
+                        <TextInput id='config-http-proxy'
+                                className="proxy"
+                                value={this.state["http-proxy"]}
+                                onChange={value => this.updateValue('http-proxy', value)} />
+                    </FormGroup>
+                    <FormGroup fieldId='config-proxy' label="HTTPS proxy">
+                        <TextInput id='config-https-proxy'
+                                className="proxy"
+                                value={this.state["https-proxy"]}
+                                onChange={value => this.updateValue('https-proxy', value)} />
+                    </FormGroup>
+                    <FormGroup fieldId='config-proxy' label="No proxy">
+                        <TextInput id='config-no-proxy'
+                                className="proxy"
+                                value={this.state["no-proxy"]}
+                                onChange={value => this.updateValue('no-proxy', value)} />
+                    </FormGroup>
+                    <FormGroup fieldId='config-proxy' label="Proxy CA file">
+                        <TextInput id='config-proxy-ca-file'
+                                className="proxy"
+                                value={this.state["proxy-ca-file"]}
+                                onChange={value => this.updateValue('proxy-ca-file', value)} />
+                    </FormGroup>
+
+
                     <ActionGroup>
                         <Button variant="primary" onClick={this.configurationSaveClicked}>Save</Button>
                         <Button variant="link" onClick={this.configurationResetClicked}>Reset</Button>
                     </ActionGroup>
+
+
                     <FormGroup fieldId='config-pullsecret' label="Pullsecret">
                         <Button onClick={this.props.onPullsecretChangeClicked} variant="primary">Change</Button>
                     </FormGroup>
