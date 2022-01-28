@@ -25,7 +25,7 @@ export function CockpitModule() {
                     <Text component="h2">Logs</Text>
                 </TextContent>
                 <Card style={{ padding: "20px" }}>
-                    <LogWindow />
+                    <LogWindow width="100%" />
                 </Card>
             </PageSection>
             <PageSection>
@@ -33,7 +33,7 @@ export function CockpitModule() {
                     <Text component="h2">Configuration</Text>
                 </TextContent>
                 <Card style={{ padding: "20px" }}>
-                    <Configuration />
+                    <Configuration height="420px" />
                 </Card>
             </PageSection>
         </Page>
