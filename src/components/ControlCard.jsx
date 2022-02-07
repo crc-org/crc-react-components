@@ -11,6 +11,9 @@ import "./ControlCard.scss";
 export default class ControlCard extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            CrcStatus: this.props.status
+        };
 
         this.updateStatus = this.updateStatus.bind(this);
         this.status = React.createRef();
@@ -21,6 +24,12 @@ export default class ControlCard extends React.Component {
         this.status.current.updateStatus(values);
     }
     
+    componentWillReceiveProps(nextProps) {
+        this.setState({
+            CrcStatus: nextProps.status
+        })
+    }
+
     render() {
         return (
             <Card className="crc-controlcard">
@@ -31,8 +40,8 @@ export default class ControlCard extends React.Component {
                 </CardBody>
                 <CardFooter>
                     <Actions ref={this.actions}
-                        onStartClicked={this.props.onStartClicked}
-                        onStopClicked={this.props.onStopClicked}
+                        status={this.state.CrcStatus}
+                        onPlayPauseClicked={this.props.onPlayPauseClicked}
                         onDeleteClicked={this.props.onDeleteClicked} />
                 </CardFooter>
             </Card>
@@ -42,7 +51,7 @@ export default class ControlCard extends React.Component {
 
 ControlCard.propTypes = {
     preset: PropTypes.string,
-    onStartClicked: PropTypes.func,
-    onStopClicked: PropTypes.func,
+    status: PropTypes.string,
+    onPlayPauseClicked: PropTypes.func,
     onDeleteClicked: PropTypes.func
 };
