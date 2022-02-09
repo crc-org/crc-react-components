@@ -1,4 +1,6 @@
 import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import PullSecretInputCard from '../components/PullSecretInputCard';
 
 export default {
@@ -6,9 +8,9 @@ export default {
   component: PullSecretInputCard,
   argTypes: {
   },
-};
+}as ComponentMeta<typeof PullSecretInputCard>;
 
-const Template = (args) => <PullSecretInputCard {...args} />;
+const Template: ComponentStory<typeof PullSecretInputCard> = (args) => <PullSecretInputCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

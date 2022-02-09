@@ -3,13 +3,33 @@ import PropTypes from 'prop-types';
 import {
     Card, CardTitle, CardBody, CardFooter,
 } from '@patternfly/react-core';
-import Actions from './Actions.jsx'
-import Status from './Status.jsx'
+import Actions, {ActionsProps} from './Actions'
+import Status from './Status'
 
 import "./ControlCard.scss";
+import { CrcState } from './types';
 
-export default class ControlCard extends React.Component {
-    constructor(props) {
+export interface ControlCardProps extends ActionsProps {
+    readonly preset: string;
+}
+
+interface State {
+    readonly CrcStatus: string;
+}
+
+export default class ControlCard extends React.Component<ControlCardProps> {
+    static propTypes = {
+        preset: PropTypes.string,
+        status: PropTypes.string,
+        onPlayPauseClicked: PropTypes.func,
+        onDeleteClicked: PropTypes.func
+    };
+
+    state: State;
+
+    private status: React.RefObject<Status>;
+
+    constructor(props: ControlCardProps) {
         super(props);
         this.state = {
             CrcStatus: this.props.status
@@ -17,19 +37,18 @@ export default class ControlCard extends React.Component {
 
         this.updateStatus = this.updateStatus.bind(this);
         this.status = React.createRef();
-        this.actions = React.createRef();
     }
 
-    updateStatus(values) {
-        this.status.current.updateStatus(values);
+    updateStatus(values: CrcState) {
+        this.status.current!.updateStatus(values);
     }
-    
-    componentWillReceiveProps(nextProps) {
+
+    componentWillReceiveProps(nextProps: ControlCardProps): void {
         this.setState({
             CrcStatus: nextProps.status
         })
     }
-
+    
     render() {
         return (
             <Card className="crc-controlcard">
@@ -39,7 +58,7 @@ export default class ControlCard extends React.Component {
                         preset={this.props.preset}/>
                 </CardBody>
                 <CardFooter>
-                    <Actions ref={this.actions}
+                    <Actions
                         status={this.state.CrcStatus}
                         onPlayPauseClicked={this.props.onPlayPauseClicked}
                         onDeleteClicked={this.props.onDeleteClicked} />
@@ -49,9 +68,3 @@ export default class ControlCard extends React.Component {
     }
 }
 
-ControlCard.propTypes = {
-    preset: PropTypes.string,
-    status: PropTypes.string,
-    onPlayPauseClicked: PropTypes.func,
-    onDeleteClicked: PropTypes.func
-};

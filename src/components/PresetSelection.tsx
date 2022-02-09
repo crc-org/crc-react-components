@@ -4,8 +4,36 @@ import { Button } from '@patternfly/react-core';
 
 import "./PresetSelection.scss";
 
-export default class PresetSelection extends React.Component {
-    constructor(props) {
+export interface PresetSelectionProps {
+    readonly value: string;
+    readonly podmanDescription: string;
+    readonly openshiftDescription: string;
+    readonly isCompact: boolean;
+    readonly id?: string;
+    readonly className?: string;
+    onPresetChange?: (value: string) => void;
+}
+
+interface State {
+    readonly presetSelected: string;
+}
+export default class PresetSelection extends React.Component<PresetSelectionProps> {
+    static propTypes = {
+        value: PropTypes.string,
+        podmanDescription: PropTypes.string,
+        openshiftDescription: PropTypes.string,
+        onPresetChange: PropTypes.func
+    }
+    
+    static defaultProps = {
+        value: "unknown",
+        podmanDescription: "This option will allow you to use podman to run containers inside a VM environment.",
+        openshiftDescription: "This option will run a full cluster environment as a single node, providing a registry, monitoring and access to Operator Hub"
+    }; 
+
+    private description: string;
+    state: State;
+    constructor(props: PresetSelectionProps) {
         super(props);
         this.state = {
             presetSelected: this.props.value
@@ -15,18 +43,18 @@ export default class PresetSelection extends React.Component {
         this.handlePresetSelectClick = this.handlePresetSelectClick.bind(this);
         this.updatePresetDescription = this.updatePresetDescription.bind(this);
     }
-  
-    handlePresetSelectClick = (event, value) => {
+
+    handlePresetSelectClick = (event: React.SyntheticEvent, value: string) => {
         this.setState({ presetSelected: value });
 
         this.updatePresetDescription(value);
 
-        if(this.props.onChanged !== null) {
-            this.props.onChange(value);
+        if(this.props.onPresetChange) {
+            this.props.onPresetChange(value);
         }
     };
 
-    updatePresetDescription(value) {
+    updatePresetDescription(value: string): void {
         if(value === "podman") {
             this.description = this.props.podmanDescription;
         }
@@ -35,13 +63,13 @@ export default class PresetSelection extends React.Component {
         }
     }
 
-    componentWillReceiveProps(nextProps) {
+    componentWillReceiveProps(nextProps: PresetSelectionProps) : void{
         this.setState({
            presetSelected: nextProps.value
         })
 
         this.updatePresetDescription(nextProps.value);
-      }
+    }
 
     render() {
         var compactTemplate = (
@@ -78,17 +106,3 @@ export default class PresetSelection extends React.Component {
         );
     }
 }
-
-
-PresetSelection.propTypes = {
-    value: PropTypes.string,
-    podmanDescription: PropTypes.string,
-    openshiftDescription: PropTypes.string,
-    onChange: PropTypes.func
-}
-
-PresetSelection.defaultProps = {
-    value: "unknown",
-    podmanDescription: "This option will allow you to use podman to run containers inside a VM environment.",
-    openshiftDescription: "This option will run a full cluster environment as a single node, providing a registry, monitoring and access to Operator Hub"
-}; 

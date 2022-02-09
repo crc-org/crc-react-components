@@ -1,4 +1,6 @@
 import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import Actions from '../components/Actions';
 
 export default {
@@ -6,9 +8,9 @@ export default {
   component: Actions,
   argTypes: {
   },
-};
+} as ComponentMeta<typeof Actions>;
 
-const Template = (args) => <Actions {...args} />;
+const Template: ComponentStory<typeof Actions> = (args) => <Actions {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

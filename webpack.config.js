@@ -14,7 +14,7 @@ const production = process.env.NODE_ENV === 'production';
 /* Only minimize when in production mode */
 if (production) {
   plugins.unshift(new CompressionPlugin({
-      test: /\.(js|jsx|html|css)$/,
+      test: /\.(js|jsx|html|css|ts|tsx)$/,
       deleteOriginalAssets: true
   }));
 }
@@ -24,7 +24,7 @@ module.exports = {
     ignored: /node_modules/,
   },
   entry: {
-    index: "./src/index.js",
+    index: "./src/index.ts",
   },
   externalsPresets: { node: true },
   externals: [nodeExternals()],
@@ -35,12 +35,13 @@ module.exports = {
     libraryTarget: 'commonjs'
   },
 
+  
   module: {
     rules: [
-     {
-        test: /\.(js|jsx)$/,
+      {
+        test: /\.tsx?$/,
+        use: 'ts-loader',
         exclude: /node_modules/,
-        use: ['babel-loader']
       },
       { 
         test: /\.s?css$/,
@@ -65,6 +66,9 @@ module.exports = {
         ],
       }
     ]
+  },
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
   },
   plugins: plugins
 }
