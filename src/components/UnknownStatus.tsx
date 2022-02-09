@@ -1,9 +1,16 @@
 import React from 'react';
 
 import "./Status.scss";
+import { CrcState } from './types';
+
+interface UnknownStatusState {
+    readonly CrcStatus: string;
+}
 
 export default class UnknownStatus extends React.Component {
-    constructor(props) {
+    state: UnknownStatusState;
+
+    constructor(props: {}) {
         super(props);
         this.state = {
             CrcStatus: "Unknown",
@@ -12,7 +19,7 @@ export default class UnknownStatus extends React.Component {
         this.updateState = this.updateState.bind(this);
     }
 
-    updateStatus(values) {
+    updateStatus(values: CrcState) {
         console.log("Unknown preset");
         const self = this; // make sure 'self' references to this
         Object.entries(values).forEach(function(value) {
@@ -20,7 +27,7 @@ export default class UnknownStatus extends React.Component {
         });
     }
 
-    updateState(key, value) {
+    updateState(key:string, value: unknown) {
         const newState = { ["" + key]: value };
         this.setState(newState);
     }
@@ -30,7 +37,7 @@ export default class UnknownStatus extends React.Component {
             <table className="pf-c-table pf-m-grid-md pf-m-compact">
                 <tbody>
                     <tr>
-                        <th width="100px" id="crc-status-crc" scope="row">Status</th>
+                        <th style={{width:"100px"}} id="crc-status-crc" scope="row">Status</th>
                         <td width="200px">
                             {this.state.CrcStatus}
                         </td>

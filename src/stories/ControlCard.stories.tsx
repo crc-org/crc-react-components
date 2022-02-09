@@ -1,4 +1,6 @@
 import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import ControlCard from '../components/ControlCard';
 
 export default {
@@ -6,9 +8,9 @@ export default {
   component: ControlCard,
   argTypes: {
   },
-};
+} as ComponentMeta<typeof ControlCard>;
 
-const Template = (args) => <ControlCard {...args} />;
+const Template: ComponentStory<typeof ControlCard> = (args) => <ControlCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

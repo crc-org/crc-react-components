@@ -10,10 +10,46 @@ import {
 } from '@patternfly/react-core';
 
 import "./Configuration.scss";
-import PresetSelection from './PresetSelection.jsx';
+import PresetSelection from './PresetSelection';
 
-export default class Configuration extends React.Component {
-    constructor(props) {
+export interface ConfigurationProps {
+    readonly height: number;
+    readonly textInputWidth: number;
+    onPullsecretChangeClicked: (event: React.SyntheticEvent) => void;
+    onSaveClicked: (state: State) => void;
+    onResetClicked: () => void;
+}
+
+export interface State {
+    readonly activeTabKey: number;
+    readonly preset: string;
+    readonly cpus: number;
+    readonly memory: number;
+    readonly 'disk-size': number;
+    readonly 'consent-telemetry': string;
+    readonly 'http-proxy': string;
+    readonly 'https-proxy': string;
+    readonly 'no-proxy': string;
+    readonly "proxy-ca-file": string;
+    readonly [key: string]: string | number;
+}
+export default class Configuration extends React.Component<ConfigurationProps> {
+    static propTypes = {
+        onValueChanged: PropTypes.func,
+        onSaveClicked: PropTypes.func,
+        onResetClicked: PropTypes.func,
+        onPullsecretChangeClicked: PropTypes.func,
+        height: PropTypes.string,
+        textInputWidth: PropTypes.string
+    };
+
+    static defaultProps = {
+        height: "300px",
+        textInputWidth: "320px"
+    };
+
+    state: State;
+    constructor(props: ConfigurationProps) {
         super(props);
         this.state = {
             activeTabKey: 0,
@@ -22,7 +58,6 @@ export default class Configuration extends React.Component {
             memory: 0,
             'disk-size': 0,
             'consent-telemetry': "no",
-            'disk-size': 0,
             'http-proxy': "",
             'https-proxy': "",
             'no-proxy': "",
@@ -38,27 +73,27 @@ export default class Configuration extends React.Component {
     }
 
     // Toggle currently active tab
-    handleTabClick(event, tabIndex) {
+    handleTabClick(event: React.SyntheticEvent, tabIndex: number | string): void {
         this.setState({
-          activeTabKey: tabIndex
+            activeTabKey: tabIndex
         });
     };
 
-    updateValues(values) {
+    updateValues(values: State) {
         const self = this; // make sure 'self' references to this
         Object.entries(values).forEach(function(value) {
             self.updateValue(value[0], value[1]);
         });
     }
 
-    updateClampedValue(key, min, value) {
+    updateClampedValue(key: string, min: number, value: number): void {
         if(value < min) {
             value = min;
         }
         this.updateValue(key, value);
     }
 
-    updateValue(key, value) {
+    updateValue(key: string, value: unknown) {
         if(this.state["" + key] !== undefined) {
             const newState = { ["" + key]: value };
             this.setState(newState);
@@ -74,7 +109,7 @@ export default class Configuration extends React.Component {
     }
 
     render() {
-        const {activeTabKey, isBox } = this.state;
+        const {activeTabKey } = this.state;
 
         const tabStyle = {
             height: this.props.height,
@@ -98,7 +133,7 @@ export default class Configuration extends React.Component {
                                         minusBtnAriaLabel="minus"
                                         plusBtnAriaLabel="plus"
                                         unit=""
-                                        min="1"
+                                        min={1}
                                         value={this.state.cpus}
                                         widthChars={5}
                                         onPlus={event => this.updateValue('cpus', this.state.cpus + 1)}
@@ -113,7 +148,7 @@ export default class Configuration extends React.Component {
                                         minusBtnAriaLabel="minus"
                                         plusBtnAriaLabel="plus"
                                         unit="MiB"
-                                        min="8192"
+                                        min={8192}
                                         value={this.state.memory}
                                         widthChars={5}
                                         onPlus={event => this.updateValue('memory', this.state.memory + 512)}
@@ -128,7 +163,7 @@ export default class Configuration extends React.Component {
                                         minusBtnAriaLabel="minus"
                                         plusBtnAriaLabel="plus"
                                         unit="GB"
-                                        min="20"
+                                        min={20}
                                         value={this.state["disk-size"]}
                                         widthChars={5}
                                         onPlus={event => this.updateValue('disk-size', this.state["disk-size"] + 1)}
@@ -139,9 +174,8 @@ export default class Configuration extends React.Component {
                                 <FormGroup fieldId='settings-preset' label="Preset">
                                     <PresetSelection id="settings-preset" isCompact
                                         className="preset"
-                                        inputName="preset"
                                         value={this.state["preset"]}
-                                        onChange={value => this.updateValue('preset', value)} />
+                                        onPresetChange={value => this.updateValue('preset', value)} />
                                 </FormGroup>
                             </Form>
                         </TabContentBody>
@@ -213,17 +247,3 @@ export default class Configuration extends React.Component {
         );
     }
 }
-
-Configuration.propTypes = {
-    onValueChanged: PropTypes.func,
-    onSaveClicked: PropTypes.func,
-    onResetClicked: PropTypes.func,
-    onPullsecretChangeClicked: PropTypes.func,
-    height: PropTypes.string,
-    textInputWidth: PropTypes.string
-};
-  
-Configuration.defaultProps = {
-    height: "300px",
-    textInputWidth: "320px"
-};

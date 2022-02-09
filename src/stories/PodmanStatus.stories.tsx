@@ -1,4 +1,6 @@
 import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import PodmanStatus from '../components/PodmanStatus';
 
 export default {
@@ -6,9 +8,9 @@ export default {
   component: PodmanStatus,
   argTypes: {
   },
-};
+}as ComponentMeta<typeof PodmanStatus> ;
 
-const Template = (args) => <PodmanStatus {...args} />;
+const Template: ComponentStory<typeof PodmanStatus> = (args) => <PodmanStatus {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

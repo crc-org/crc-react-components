@@ -1,4 +1,6 @@
 import React from 'react';
+import { ComponentStory, ComponentMeta } from '@storybook/react';
+
 import PresetSelection from '../components/PresetSelection';
 
 export default {
@@ -6,9 +8,9 @@ export default {
   component: PresetSelection,
   argTypes: {
   },
-};
+}as ComponentMeta<typeof PresetSelection>;
 
-const Template = (args) => <PresetSelection {...args} />;
+const Template: ComponentStory<typeof PresetSelection> = (args) => <PresetSelection {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {

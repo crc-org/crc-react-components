@@ -10,16 +10,29 @@ import InfoIcon from '@patternfly/react-icons/dist/esm/icons/info-icon';
 
 import "./PullSecretInputCard.scss";
 
-
-export default class PullSecretInputCard extends React.Component {
-    constructor(props) {
+export interface PullSecretInputCardProps {
+    readonly height: string;
+    readonly pullsecret: string;
+    onChanged: (value: string) => void;
+}
+export default class PullSecretInputCard extends React.Component<PullSecretInputCardProps> {
+    static propTypes = {
+        pullsecret: PropTypes.string,
+        height: PropTypes.string,
+        onChanged: PropTypes.func
+    }
+    
+    static defaultProps = {
+        height: "240px"
+    };
+    constructor(props: PullSecretInputCardProps) {
         super(props);
         this.state = {
         }
     }
     
     render() {
-        const style = {
+        const style: React.CSSProperties = {
             resize: "none",
             height: this.props.height
         };
@@ -48,13 +61,3 @@ export default class PullSecretInputCard extends React.Component {
         );
     }
 }
-
-PullSecretInputCard.propTypes = {
-    pullsecret: PropTypes.string,
-    height: PropTypes.string,
-    onChanged: PropTypes.func
-}
-
-PullSecretInputCard.defaultProps = {
-    height: "240px"
-};

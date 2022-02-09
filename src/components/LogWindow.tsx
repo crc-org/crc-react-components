@@ -3,8 +3,32 @@ import PropTypes from 'prop-types';
 
 import "./LogWindow.scss";
 
-export default class LogWindow extends React.Component {
-    constructor(props) {
+interface State {
+    readonly log: string;
+}
+export interface LogWindowProps {
+    readonly width: string;
+    readonly height: string;
+    readonly rows: number | undefined;
+    readonly cols: number | undefined;
+}
+export default class LogWindow extends React.Component<LogWindowProps> {
+    static propTypes = {
+        rows: PropTypes.number,
+        cols: PropTypes.number,
+        width: PropTypes.string,
+        height: PropTypes.string
+    };
+
+    static defaultProps = {
+        rows: 20,
+        cols: 80
+    };
+
+    state: State;
+    private textAreaLog: React.RefObject<HTMLTextAreaElement>;
+
+    constructor(props: LogWindowProps) {
         super(props);
         this.state = {
             log: "",
@@ -17,10 +41,10 @@ export default class LogWindow extends React.Component {
     }
 
     componentDidUpdate() {
-        this.textAreaLog.current.scrollTop = this.textAreaLog.current.scrollHeight;
+        this.textAreaLog.current!.scrollTop = this.textAreaLog.current!.scrollHeight;
     }
 
-    log(value) {
+    log(value: string): void {
         const oldstate = this.state.log;
         // prevent double newlines
         const newline = value.endsWith("\n") ? "" : "\r\n";
@@ -35,7 +59,7 @@ export default class LogWindow extends React.Component {
     }
 
     render() {
-        const style = {
+        const style: React.CSSProperties = {
             backgroundColor: "black",
             color: "white",
             resize: "none",
@@ -60,15 +84,3 @@ export default class LogWindow extends React.Component {
         );
     }
 }
-
-LogWindow.propTypes = {
-    rows: PropTypes.number,
-    cols: PropTypes.number,
-    width: PropTypes.string,
-    height: PropTypes.string
-};
-  
-LogWindow.defaultProps = {
-    rows: 20,
-    cols: 80
-};
