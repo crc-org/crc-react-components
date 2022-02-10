@@ -7,8 +7,8 @@ interface State {
     readonly log: string;
 }
 export interface LogWindowProps {
-    readonly width: string;
-    readonly height: string;
+    readonly width?: string;
+    readonly height?: string;
     readonly rows: number | undefined;
     readonly cols: number | undefined;
 }

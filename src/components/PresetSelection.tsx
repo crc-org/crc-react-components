@@ -8,7 +8,7 @@ export interface PresetSelectionProps {
     readonly value: string;
     readonly podmanDescription: string;
     readonly openshiftDescription: string;
-    readonly isCompact: boolean;
+    readonly isCompact?: boolean;
     readonly id?: string;
     readonly className?: string;
     onPresetChange?: (value: string) => void;

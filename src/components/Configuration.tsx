@@ -13,7 +13,7 @@ import "./Configuration.scss";
 import PresetSelection from './PresetSelection';
 
 export interface ConfigurationProps {
-    readonly height: number;
+    readonly height: string;
     readonly textInputWidth: number;
     onPullsecretChangeClicked: (event: React.SyntheticEvent) => void;
     onSaveClicked: (state: State) => void;
@@ -35,7 +35,6 @@ export interface State {
 }
 export default class Configuration extends React.Component<ConfigurationProps> {
     static propTypes = {
-        onValueChanged: PropTypes.func,
         onSaveClicked: PropTypes.func,
         onResetClicked: PropTypes.func,
         onPullsecretChangeClicked: PropTypes.func,
