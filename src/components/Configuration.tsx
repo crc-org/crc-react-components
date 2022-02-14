@@ -18,10 +18,10 @@ export interface ConfigurationProps {
     onPullsecretChangeClicked: (event: React.SyntheticEvent) => void;
     onSaveClicked: (state: State) => void;
     onResetClicked: () => void;
+    onPresetChange: (preset: string) => void;
 }
 
 export interface State {
-    readonly activeTabKey: number;
     readonly preset: string;
     readonly cpus: number;
     readonly memory: number;
@@ -38,6 +38,7 @@ export default class Configuration extends React.Component<ConfigurationProps> {
         onSaveClicked: PropTypes.func,
         onResetClicked: PropTypes.func,
         onPullsecretChangeClicked: PropTypes.func,
+        onPresetChange: PropTypes.func,
         height: PropTypes.string,
         textInputWidth: PropTypes.string
     };
@@ -46,6 +47,18 @@ export default class Configuration extends React.Component<ConfigurationProps> {
         height: "300px",
         textInputWidth: "320px"
     };
+
+    static openshiftDefaults: any = {
+        cpus: 4,
+        memory: 9126,
+        'disk-size': 31
+    }
+
+    static podmanDefaults: any = {
+        cpus: 1,
+        memory: 2048,
+        'disk-size': 31
+    }
 
     state: State;
     constructor(props: ConfigurationProps) {
@@ -68,7 +81,9 @@ export default class Configuration extends React.Component<ConfigurationProps> {
         this.handleTabClick = this.handleTabClick.bind(this);
 
         this.updateClampedValue = this.updateClampedValue.bind(this);
+        this.getMimimum = this.getMimimum.bind(this);
         this.updateValue = this.updateValue.bind(this);
+        this.presetChanged = this.presetChanged.bind(this)
     }
 
     // Toggle currently active tab
@@ -85,7 +100,18 @@ export default class Configuration extends React.Component<ConfigurationProps> {
         });
     }
 
-    updateClampedValue(key: string, min: number, value: number): void {
+    getMimimum(key: string) {
+        if(this.state.preset == "openshift") {
+            return Configuration.openshiftDefaults[key];
+        }
+        if(this.state.preset == "podman") {
+            return Configuration.podmanDefaults[key];
+        }
+        return 0;
+    }
+
+    updateClampedValue(key: string, value: number): void {
+        const min = this.getMimimum(key);
         if(value < min) {
             value = min;
         }
@@ -97,6 +123,17 @@ export default class Configuration extends React.Component<ConfigurationProps> {
             const newState = { ["" + key]: value };
             this.setState(newState);
         }
+    }
+
+    presetChanged(value: string) {
+        this.updateValue("preset", value)
+        if(value == "openshift") {
+            this.updateValues(Configuration.openshiftDefaults);
+        }
+        if(value == "podman") {
+            this.updateValues(Configuration.podmanDefaults);
+        }
+        this.props.onPresetChange(value);
     }
 
     configurationSaveClicked() {
@@ -136,7 +173,7 @@ export default class Configuration extends React.Component<ConfigurationProps> {
                                         value={this.state.cpus}
                                         widthChars={5}
                                         onPlus={event => this.updateValue('cpus', this.state.cpus + 1)}
-                                        onMinus={event => this.updateClampedValue('cpus', 1, this.state.cpus - 1)}
+                                        onMinus={event => this.updateClampedValue('cpus', this.state.cpus - 1)}
                                         onChange={value => this.state['cpus'] } 
                                         />
                                 </FormGroup>
@@ -151,7 +188,7 @@ export default class Configuration extends React.Component<ConfigurationProps> {
                                         value={this.state.memory}
                                         widthChars={5}
                                         onPlus={event => this.updateValue('memory', this.state.memory + 512)}
-                                        onMinus={event => this.updateClampedValue('memory', 2048, this.state.memory - 512)}
+                                        onMinus={event => this.updateClampedValue('memory', this.state.memory - 512)}
                                         onChange={value => this.state['memory'] } 
                                         />
                                 </FormGroup>
@@ -166,7 +203,7 @@ export default class Configuration extends React.Component<ConfigurationProps> {
                                         value={this.state["disk-size"]}
                                         widthChars={5}
                                         onPlus={event => this.updateValue('disk-size', this.state["disk-size"] + 1)}
-                                        onMinus={event => this.updateClampedValue('disk-size', 10, this.state["disk-size"] - 1)}
+                                        onMinus={event => this.updateClampedValue('disk-size', this.state["disk-size"] - 1)}
                                         onChange={value => this.state['disk-size'] }
                                         />
                                 </FormGroup>
@@ -174,7 +211,7 @@ export default class Configuration extends React.Component<ConfigurationProps> {
                                     <PresetSelection id="settings-preset" isCompact
                                         className="preset"
                                         value={this.state["preset"]}
-                                        onPresetChange={value => this.updateValue('preset', value)} />
+                                        onPresetChange={value => this.presetChanged(value)} />
                                 </FormGroup>
                             </Form>
                         </TabContentBody>
