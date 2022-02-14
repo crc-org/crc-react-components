@@ -8,9 +8,6 @@
   "license": "Apache",
   "private": false,
   "description": "A library of shared React components for use with CodeReady Containers",
-  "files": [
-    "dist"
-  ],
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "repository": {

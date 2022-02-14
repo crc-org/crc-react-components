@@ -1,1 +1,9 @@
 dist/stories/
+node_modules/
+src/
+.babelrc
+.gitpod.yml
+.storybook/
+tsconfig.json
+webpack.config.js
+
